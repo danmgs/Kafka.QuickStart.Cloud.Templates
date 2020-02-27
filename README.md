@@ -29,17 +29,17 @@ It uses docker images compatible with for **Linux OS**.
 
 ### 3.1. Configuration
 
-Before using these templates, you need to configure these keys:
+Before using these templates, you need to configure the Twitter config options:
 
 
-|  Key                            | Instructions                                               | Mandatory/Optional
-| :-----------------------------: | -----------------------------------------------------------| --------------------
-| TWITTER_OAUTH_CONSUMER_KEY      | to replace with your twitter API key                       | Mandatory
-| TWITTER_OAUTH_CONSUMER_SECRET   | to replace with your twitter API secret                    | Mandatory
-| TWITTER_SEARCH_INTERVAL_MS      | checks in ms of tweets (*)                                 | Optional
-| TWITTER_SEARCH_KEYWORD          | keyword for tweet search (***musique*** by default)        | Optional
+|  Options                        | Instructions                                             | Mandatory/Optional
+| :-----------------------------: | ---------------------------------------------------------| --------------------
+| TWITTER_OAUTH_CONSUMER_KEY      | to replace with your twitter API key                     | Mandatory
+| TWITTER_OAUTH_CONSUMER_SECRET   | to replace with your twitter API secret                  | Mandatory
+| TWITTER_SEARCH_INTERVAL_MS      | checks frequency in ms of tweets (*)                     | Optional
+| TWITTER_SEARCH_KEYWORD          | keyword for tweet search (***musique*** by default)      | Optional
 
-(*) Note Twitter has a throttling limit with 429 error code. Choose milliseconds value accordingly (not too small)
+(*) Note Twitter has a [throttling limit](https://developer.twitter.com/en/docs/basics/rate-limiting) with "Too Many Requests" 429 response code. Choose milliseconds value accordingly (not too small)
 
 
 ### 3.2.1 Deployment under Azure

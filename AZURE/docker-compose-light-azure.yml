@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  kfk-middleware-webapi:
+    container_name: kfk-middleware-webapi
+    image: danmgs/kafkaquickstart-middleware-webapi:1.7
+    hostname: kfk-middleware-webapi
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001
+      - ALLOW_CORS_ORIGINS=http://0.0.0.0
+
+  kfk-frontend-webapp:
+    container_name: kfk-frontend-webapp
+    image: danmgs/kafkaquickstart-frontend-webapp:1.7
+    ports:
+      - "80:80"
+    depends_on:
+      - kfk-middleware-webapi

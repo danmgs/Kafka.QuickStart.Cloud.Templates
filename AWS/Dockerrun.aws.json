@@ -1,0 +1,189 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "zoo1",
+      "image": "zookeeper:3.4.9",
+      "hostname": "zoo1",
+      "environment": [
+        {
+          "name": "ZOO_MY_ID",
+          "value": "1"
+        },
+        {
+          "name": "ZOO_PORT",
+          "value": "2181"
+        },
+        {
+          "name": "ZOO_SERVERS",
+          "value": "server.1=zoo1:2888:3888"
+        }
+      ],
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 2181,
+          "containerPort": 2181
+        }
+      ]
+    },
+    {
+      "name": "kafka1",
+      "image": "confluentinc/cp-kafka:5.4.0",
+      "hostname": "kafka1",
+      "environment": [
+        {
+          "name": "KAFKA_ADVERTISED_LISTENERS",
+          "value": "LISTENER_DOCKER_INTERNAL://kafka1:19092"
+        },
+        {
+          "name": "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP",
+          "value": "LISTENER_DOCKER_INTERNAL:PLAINTEXT"
+        },
+        {
+          "name": "KAFKA_INTER_BROKER_LISTENER_NAME",
+          "value": "LISTENER_DOCKER_INTERNAL"
+        },
+        {
+          "name": "KAFKA_ZOOKEEPER_CONNECT",
+          "value": "zoo1:2181"
+        },
+        {
+          "name": "KAFKA_BROKER_ID",
+          "value": "1"
+        },
+        {
+          "name": "KAFKA_LOG4J_LOGGERS",
+          "value": "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+        },
+        {
+          "name": "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR",
+          "value": "1"
+        }
+      ],
+      "essential": true,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "hostPort": 9092,
+          "containerPort": 9092
+        }
+      ],
+      "links": [
+        "zoo1"
+      ]
+    },
+    {
+      "name": "kfk-backend-console-producer",
+      "image": "danmgs/kafkaquickstart-backend-console-producer:1.8",
+      "environment": [
+        {
+          "name": "KAFKA_BOOTSTRAPSERVERS",
+          "value": "kafka1:19092"
+        },
+        {
+          "name": "KAFKA_TOPIC",
+          "value": "topic_tweets"
+        },
+        {
+          "name": "TWITTER_OAUTH_CONSUMER_KEY",
+          "value": "<YOUR_TWITTER_OAUTH_CONSUMER_KEY>"
+        },
+        {
+          "name": "TWITTER_OAUTH_CONSUMER_SECRET",
+          "value": "<YOUR_TWITTER_OAUTH_CONSUMER_SECRET>"
+        },
+        {
+          "name": "TWITTER_API_URL",
+          "value": "https://api.twitter.com/oauth2/token"
+        },
+        {
+          "name": "TWITTER_SEARCH_INTERVAL_MS",
+          "value": "15000"
+        },
+        {
+          "name": "TWITTER_SEARCH_KEYWORD",
+          "value": "musique"
+        }
+      ],
+      "essential": true,
+      "memory": 128,
+      "links": [
+        "zoo1",
+        "kafka1"
+      ]
+    },
+    {
+      "name": "kfk-backend-console-consumer",
+      "image": "danmgs/kafkaquickstart-backend-console-consumer:1.8",
+      "environment": [
+        {
+          "name": "KAFKA_BOOTSTRAPSERVERS",
+          "value": "kafka1:19092"
+        },
+        {
+          "name": "KAFKA_TOPIC",
+          "value": "topic_tweets"
+        },
+        {
+          "name": "KAFKA_GROUPID",
+          "value": "my-consumer-group-id"
+        },
+        {
+          "name": "MESSAGE_API_URL",
+          "value": "http://kfk-middleware-webapi:5001/api/message"
+        }
+      ],
+      "essential": true,
+      "memory": 128,
+      "links": [
+        "zoo1",
+        "kafka1",
+        "kfk-backend-console-producer",
+        "kfk-middleware-webapi"
+      ]
+    },
+    {
+      "name": "kfk-middleware-webapi",
+      "image": "danmgs/kafkaquickstart-middleware-webapi:1.7",
+      "environment": [
+        {
+          "name": "ASPNETCORE_ENVIRONMENT",
+          "value": "Development"
+        },
+        {
+          "name": "ASPNETCORE_URLS",
+          "value": "http://+:5001"
+        },
+        {
+          "name": "ALLOW_CORS_ORIGINS",
+          "value": "http://0.0.0.0"
+        }
+      ],
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 5001,
+          "containerPort": 5001
+        }
+      ]
+    },
+    {
+      "name": "kfk-frontend-webapp",
+      "image": "danmgs/kafkaquickstart-frontend-webapp:1.7",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "kfk-middleware-webapi"
+      ]
+    }
+  ]
+}

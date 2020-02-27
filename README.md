@@ -1,8 +1,8 @@
 # Kafka.QuickStart.Cloud.Templates
 
-Docker-compose templates for Cloud providers Microsoft Azure and AWS to deploy micro-services architectured application leveraging Kafka producer-consumer pattern.
+Docker-compose templates for Cloud providers Microsoft Azure and AWS to deploy micro-services application leveraging Kafka producer-consumer pattern.
 
-![alt capture](C:\Apps\GIT\Kafka.QuickStart.Cloud.Templates\Azure_frontend.gif)
+![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/Azure_frontend.gif)
 
 ## 1. Folder organization
 
@@ -48,14 +48,23 @@ We will create a web app in **App Service**.
 
 1. Select Publish: ***Docker container*** and Operating System: ***Linux***
 
-![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/Azure_app_service_1.PNG)
+<details>
+  <summary>Click to expand details</summary>
+
+  ![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/Azure_app_service_1.PNG)
+
+</details>
 
 2. Select Docker Options: ***Docker compose*** and Image Source: ***Docker Hub***.
 
 3. Upload configuration file **docker-compose-extended-azure.yml**
 
-![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/Azure_app_service_2.PNG)
+<details>
+  <summary>Click to expand details</summary>
 
+  ![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/Azure_app_service_2.PNG)
+
+</details>
 
 ### 3.2.1 Deployment under AWS
 
@@ -66,4 +75,9 @@ We will create a web app in **ElasticBeanstalk**.
 3. Upload configuration file **Dockerrun.aws.json**
 4. Select **Configure More Option**, in the **Capacity**, you should select EC2 instance type: ***t3 medium*** at least (minimum requirement).
 
-![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/AWS_elasticbeanstak_1.PNG)
+<details>
+  <summary>Click to expand details</summary>
+
+  ![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/AWS_elasticbeanstak_1.PNG)
+
+</details>

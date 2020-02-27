@@ -1,6 +1,6 @@
 # Kafka.QuickStart.Cloud.Templates
 
-Docker-compose templates for Cloud providers Microsoft Azure and AWS to deploy micro-services architectured application leveraging Kafka producer-consumer pattern.
+Docker-compose templates for Cloud providers Microsoft Azure and AWS to deploy micro-services application leveraging Kafka producer-consumer pattern.
 
 ![alt capture](C:\Apps\GIT\Kafka.QuickStart.Cloud.Templates\Azure_frontend.gif)
 

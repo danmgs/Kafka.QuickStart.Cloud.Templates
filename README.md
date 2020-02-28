@@ -20,14 +20,31 @@ Docker-compose templates for Cloud providers Microsoft Azure and AWS to deploy m
 - You need to have an [Microsoft Azure account](https://portal.azure.com) or [AWS account](https://aws.amazon.com/fr/console/).
 - You need to create [Twitter API keys](https://developer.twitter.com/en/apps).
 
+## 3. High Level Architecture
 
-## 3. Instructions
+![alt capture](https://github.com/danmgs/Kafka.QuickStart.Cloud.Templates/blob/master/img/architecture_hld.png)
+
+## 4. Instructions
+
+### 4.1. Docker images
 
 These are docker-compose templates for deployment under Azure or AWS.
 
-It uses docker images compatible with for **Linux OS**.
+It uses docker images hosted in Docker Hub Registry.
 
-### 3.1. Configuration
+They are compatible with for **Linux OS**.
+
+|  Docker images                                          | Docker Repository                                                                                 | Description
+| :-----------------------------------------------------: | --------------------------------------------------------------------------------------------------| --------------------------
+| zookeeper:3.4.9                                         | [link](https://hub.docker.com/_/zookeeper)                                                        | Zookeeper
+| confluentinc/cp-kafka:5.4.0                             | [link](https://hub.docker.com/r/confluentinc/cp-kafka)                                            | Kafka
+| danmgs/kafkaquickstart-backend-console-producer:1.8     | [link](https://hub.docker.com/repository/docker/danmgs/kafkaquickstart-backend-console-producer)  | Kafka C# Console Producer
+| danmgs/kafkaquickstart-backend-console-consumer:1.8     | [link](https://hub.docker.com/repository/docker/danmgs/kafkaquickstart-backend-console-consumer)  | Kafka C# Console Consumer
+| danmgs/kafkaquickstart-middleware-webapi:1.7            | [link](https://hub.docker.com/repository/docker/danmgs/kafkaquickstart-middleware-webapi)         | C# WebAPI
+| danmgs/kafkaquickstart-frontend-webapp:1.7              | [link](https://hub.docker.com/repository/docker/danmgs/kafkaquickstart-frontend-webapp)           | Angular WebApp
+
+
+### 4.2. Configuration
 
 Before using these templates, you need to configure the Twitter config options:
 
@@ -42,7 +59,7 @@ Before using these templates, you need to configure the Twitter config options:
 (*) Note Twitter has a [throttling limit](https://developer.twitter.com/en/docs/basics/rate-limiting) with "Too Many Requests" 429 response code. Choose milliseconds value accordingly (not too small)
 
 
-### 3.2.1 Deployment under Azure
+### 4.3.1 Deployment under Azure
 
 We will create a web app in **App Service**.
 
@@ -66,7 +83,7 @@ We will create a web app in **App Service**.
 
 </details>
 
-### 3.2.1 Deployment under AWS
+### 4.3.2 Deployment under AWS
 
 We will create a web app in **ElasticBeanstalk**.
 
